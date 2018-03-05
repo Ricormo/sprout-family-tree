@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Class\Converter\EndDateFormatConverter.cs" />
+    <Compile Include="Class\Converter\OppositeBoolConverter.cs" />
     <Compile Include="Class\Converter\SexConverter.cs" />
     <Compile Include="Class\CommandHandler.cs" />
     <Compile Include="Class\ViewModelBase.cs" />

@@ -3,8 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:conv="clr-namespace:FamilyTree.Class.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">   
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </UserControl.Resources>
     
     <Grid 
         DataContext="{Binding EditedPerson}">
@@ -12,10 +19,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -23,26 +37,69 @@
             Grid.Column="0"
             Grid.RowSpan="2"/>
 
-        <Grid
-            Grid.Column="1" 
-            Grid.Row="0">
+        <Label 
+            Content="First Name"
+            Grid.Row="0"
+            Grid.Column="1"/>
+        <TextBox 
+            Text="{Binding FirstName}"
+            Grid.Row="1"
+            Grid.Column="1"/>
 
-            <StackPanel
-                Orientation="Horizontal">
+        <Label 
+            Content="First Name"
+            Grid.Row="0"
+            Grid.Column="2"/>
+        <TextBox 
+            Text="{Binding LastName}"
+            Grid.Row="1"
+            Grid.Column="2"/>
 
-                <TextBox Text="{Binding FirstName}"/>
-                <TextBox Text="{Binding LastName}"/>
-                
-                <!--<Label Content="{Binding Sex, Converter={conv:SexConverter}}"/>-->
-            </StackPanel>
-        </Grid>
+        <Label 
+            Content="Sex"
+            Grid.Row="2"
+            Grid.Column="1"/>
+        <RadioButton 
+            Content="♂ Male"
+            IsChecked="{Binding Path=Sex}"
+            GroupName="Sex"
+            Grid.Row="3"
+            Grid.Column="1"/>
+        <RadioButton 
+            Content="♀ Female"
+            GroupName="Sex"
+            Grid.Row="3"
+            Grid.Column="2"/>
 
-        <Grid 
-            Grid.Column="1" 
-            Grid.Row="1">
+        <Label 
+            Content="Appearance"
+            Grid.Row="4"
+            Grid.Column="0"/>
+        <Label 
+            Content="Hair Color"
+            Grid.Row="5"
+            Grid.Column="0"/>
+        <ComboBox 
+            ItemsSource="{Binding HairColors}"
+            Grid.Row="6"
+            Grid.Column="0"/>
 
-            <Label Content="{Binding LifeSpan}"/>
-            
-        </Grid>
+        <Label 
+            Content="Eye Color"
+            Grid.Row="5"
+            Grid.Column="1"/>
+        <ComboBox 
+            ItemsSource="{Binding EyeColors}"
+            Grid.Row="6"
+            Grid.Column="1"/>
+
+        <Label 
+            Content="Hair Color"
+            Grid.Row="5"
+            Grid.Column="2"/>
+        <TextBlock 
+            Text="{Binding Height}"
+            Grid.Row="6"
+            Grid.Column="2"/>
     </Grid>
 </UserControl>

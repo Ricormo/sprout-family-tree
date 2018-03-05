@@ -14,6 +14,10 @@ namespace FamilyTree.Database.Service
 
         IEnumerable<AttendeeModel> GetAttendees(string fileName);
 
+        IEnumerable<HairColorModel> GetHairColors();
+
+        IEnumerable<EyeColorModel> GetEyeColors();
+
         void ExportFiles(IEnumerable<PersonViewModel> people);
 
         void ExportReadableFiles(IEnumerable<PersonViewModel> people);

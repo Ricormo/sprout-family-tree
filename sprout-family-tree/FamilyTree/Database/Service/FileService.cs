@@ -138,5 +138,73 @@ namespace FamilyTree.Database.Service
 
             return attendees;
         }
+
+        public IEnumerable<HairColorModel> GetHairColors()
+        {
+            var hairColors = new List<HairColorModel>();
+
+            hairColors.Add(new HairColorModel
+            {
+                Id = 0,
+                Color = "Black"
+            });
+
+            hairColors.Add(new HairColorModel
+            {
+                Id = 1,
+                Color = "Brown"
+            });
+
+            hairColors.Add(new HairColorModel
+            {
+                Id = 2,
+                Color = "Green"
+            });
+
+            hairColors.Add(new HairColorModel
+            {
+                Id = 3,
+                Color = "Red"
+            });
+
+            hairColors.Add(new HairColorModel
+            {
+                Id = 4,
+                Color = "Blonde"
+            });
+
+            return hairColors;
+        }
+
+        public IEnumerable<EyeColorModel> GetEyeColors()
+        {
+            var eyeColors = new List<EyeColorModel>();
+
+            eyeColors.Add(new EyeColorModel
+            {
+                Id = 0,
+                Color = "Brown"
+            });
+
+            eyeColors.Add(new EyeColorModel
+            {
+                Id = 1,
+                Color = "Hazel"
+            });
+
+            eyeColors.Add(new EyeColorModel
+            {
+                Id = 2,
+                Color = "Green"
+            });
+
+            eyeColors.Add(new EyeColorModel
+            {
+                Id = 3,
+                Color = "Blue"
+            });
+            
+            return eyeColors;
+        }
     }
 }

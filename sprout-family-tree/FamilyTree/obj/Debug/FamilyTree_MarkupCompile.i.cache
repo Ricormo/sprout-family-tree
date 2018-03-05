@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\student\source\repos\FamilyTree\FamilyTree\obj\Debug\
+C:\Users\student\source\repos\sprout-family-tree\sprout-family-tree\FamilyTree\obj\Debug\
 FamilyTree
 none
 false
 DEBUG;TRACE
-C:\Users\student\source\repos\FamilyTree\FamilyTree\App.xaml
+C:\Users\student\source\repos\sprout-family-tree\sprout-family-tree\FamilyTree\App.xaml
 6-725260793
 
-301587473331
-14905402047
+31323207418
+14-1397620719
 MainWindow.xaml;View\EventView.xaml;View\FamilyView.xaml;View\PersonDetailView.xaml;View\PersonEditView.xaml;View\PersonView.xaml;
 
-False
+True
 

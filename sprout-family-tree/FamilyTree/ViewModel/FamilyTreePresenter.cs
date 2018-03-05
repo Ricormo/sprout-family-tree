@@ -169,6 +169,20 @@ namespace FamilyTree.ViewModel
         }
         private ObservableCollection<EventModel> _events = new ObservableCollection<EventModel>();
 
+        public List<HairColorModel> HairColors
+        {
+            get => _hairColors;
+            set => SetField(ref _hairColors, value);
+        }
+        private List<HairColorModel> _hairColors = new List<HairColorModel>();
+        
+        public List<EyeColorModel> EyeColors
+        {
+            get => _eyeColors;
+            set => SetField(ref _eyeColors, value);
+        }
+        private List<EyeColorModel> _eyeColors = new List<EyeColorModel>();
+
         public EventModel SelectedEvent
         {
             get => _selectedEvent;

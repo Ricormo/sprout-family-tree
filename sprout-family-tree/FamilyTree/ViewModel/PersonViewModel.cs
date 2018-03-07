@@ -18,8 +18,8 @@ namespace FamilyTree.ViewModel
 
         public long? FatherId { get; set; }
         public long? MotherId { get; set; }
-
-        public List<PersonModel> Family { get; set; }
+        
+        public List<PersonModel> Children { get; set; }
 
         public string FullName => FirstName + " " + LastName;
         public string LifeSpan => $"{Birth?.StartTime:d} - {Death?.StartTime:d}";

@@ -5,8 +5,8 @@ namespace FamilyTree.Class
 {
     public class CommandHandler : ICommand
     {
-        private Action _action;
-        private bool _canExecute;
+        private readonly Action _action;
+        private readonly bool _canExecute;
         public event EventHandler CanExecuteChanged;
 
         public CommandHandler(Action action, bool canExecute)

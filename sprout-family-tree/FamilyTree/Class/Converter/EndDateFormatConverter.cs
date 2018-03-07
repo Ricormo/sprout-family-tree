@@ -11,7 +11,7 @@ namespace FamilyTree.Class.Converter
         {
             if (value == null || !DateTime.TryParse(value.ToString(), out DateTime date))
                 return "";
-            return $" - {date.ToString("MM/dd/yyyy")}";
+            return $" - {date:MM/dd/yyyy}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

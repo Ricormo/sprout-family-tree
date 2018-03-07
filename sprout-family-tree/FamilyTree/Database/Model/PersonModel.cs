@@ -8,7 +8,7 @@
         public bool? Sex { get; set; }
         public AppearanceModel Appearance { get; set; }
         
-        public long FatherId { get; set; }
-        public long MotherId { get; set; }       
+        public long? FatherId { get; set; }
+        public long? MotherId { get; set; }       
     }
 }

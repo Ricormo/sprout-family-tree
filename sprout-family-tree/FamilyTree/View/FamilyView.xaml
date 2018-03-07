@@ -3,10 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FamilyTree.View"
+             xmlns:view="clr-namespace:FamilyTree.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Label>Family</Label>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label 
+            Content="Father"
+            Style="{StaticResource TitleText}"
+            Grid.Row="0"/>
+
+        <view:PersonView 
+            DataContext="{Binding Father}"
+            Grid.Row="1"/>
+
+        <Label 
+            Content="Mother"
+            Style="{StaticResource TitleText}"
+            Grid.Row="2"/>
+
+        <view:PersonView 
+            DataContext="{Binding Mother}"
+            Grid.Row="3"/>
+        
+        <ListView
+            ItemsSource="{Binding Children}"
+            Grid.Row="4">
+
+            <!--<ListViewItem>
+                <ListViewItem.Template>
+                    <ControlTemplate>
+                        <view:PersonView/>
+                    </ControlTemplate>
+                </ListViewItem.Template>
+            </ListViewItem>-->
+
+        </ListView>
+
     </Grid>
 </UserControl>

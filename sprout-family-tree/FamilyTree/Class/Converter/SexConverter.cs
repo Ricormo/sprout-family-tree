@@ -16,7 +16,7 @@ namespace FamilyTree.Class.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.ToString() == "♂";
+            return value != null && value.ToString() == "♂";
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)

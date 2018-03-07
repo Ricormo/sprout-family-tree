@@ -11,7 +11,7 @@ namespace FamilyTree.ViewModel
 {
     public class FamilyTreePresenter : ViewModelBase
     {
-        private IFileService _fileService;
+        private readonly IFileService _fileService;
 
         public FamilyTreePresenter(IFileService fileService)
         {
@@ -39,11 +39,17 @@ namespace FamilyTree.ViewModel
                 .Where(e => eventIds.Contains(e.EventId))
                 .OrderBy(e => e.StartTime).ToList();
 
-            var parents = People
-                .Where(p =>
-                    p.Id == SelectedPerson.FatherId
-                    || p.Id == SelectedPerson.MotherId)
-                    .ToList();
+            Father = People
+                .FirstOrDefault(p => p.Id == SelectedPerson.FatherId);
+
+            Mother = People
+                .FirstOrDefault(p => p.Id == SelectedPerson.MotherId);
+
+            //var parents = People
+            //    .Where(p =>
+            //        p.Id == SelectedPerson.FatherId
+            //        || p.Id == SelectedPerson.MotherId)
+            //        .ToList();
 
             var children = People
                 .Where(p =>
@@ -58,6 +64,12 @@ namespace FamilyTree.ViewModel
 
             var partners = People
                 .Where(p => childrenParents.Contains(p.Id)).ToList();
+
+            Children = new ObservableCollection<PersonViewModel>(People
+                .Where(p =>
+                    p.FatherId == SelectedPerson.Id
+                    || p.MotherId == SelectedPerson.Id)
+                .ToList());
         }
 
         private void AddPerson()
@@ -81,7 +93,7 @@ namespace FamilyTree.ViewModel
                 Events = SelectedPerson.Events,
                 FatherId = SelectedPerson.FatherId,
                 MotherId = SelectedPerson.MotherId,
-                Family = SelectedPerson.Family
+                Children = SelectedPerson.Children
             };
             IsEditingPerson = true;
         }
@@ -154,6 +166,27 @@ namespace FamilyTree.ViewModel
             }
         }
         private PersonViewModel _editedPerson = new PersonViewModel();
+        
+        public PersonViewModel Father
+        {
+            get => _father;
+            set => SetField(ref _father, value);
+        }
+        private PersonViewModel _father = new PersonViewModel();
+
+        public PersonViewModel Mother
+        {
+            get => _mother;
+            set => SetField(ref _mother, value);
+        }
+        private PersonViewModel _mother = new PersonViewModel();
+
+        public ObservableCollection<PersonViewModel> Children
+        {
+            get => _children;
+            set => SetField(ref _children, value);
+        }
+        private ObservableCollection<PersonViewModel> _children = new ObservableCollection<PersonViewModel>();
 
         public List<AttendeeModel> Attendees
         {
@@ -168,7 +201,7 @@ namespace FamilyTree.ViewModel
             set => SetField(ref _events, value);
         }
         private ObservableCollection<EventModel> _events = new ObservableCollection<EventModel>();
-
+        
         public List<HairColorModel> HairColors
         {
             get => _hairColors;
@@ -191,19 +224,19 @@ namespace FamilyTree.ViewModel
         private EventModel _selectedEvent = new EventModel();
         
         public ICommand AddPersonCommand =>
-            (_addPersonCommand ?? new CommandHandler(() => AddPerson(), true));
-        private ICommand _addPersonCommand;
+            _addPersonCommand ?? new CommandHandler(AddPerson, true);
+        private readonly ICommand _addPersonCommand;
 
         public ICommand EditPersonCommand =>
-            (_editPersonCommand ?? new CommandHandler(() => EditPerson(), true));
-        private ICommand _editPersonCommand;
+            _editPersonCommand ?? new CommandHandler(EditPerson, true);
+        private readonly ICommand _editPersonCommand;
 
         public ICommand SavePersonCommand =>
-            (_savePersonCommand ?? new CommandHandler(() => SavePerson(), true));
-        private ICommand _savePersonCommand;
+            _savePersonCommand ?? new CommandHandler(SavePerson, true);
+        private readonly ICommand _savePersonCommand;
 
         public ICommand CancelSaveCommand =>
-            (_cancelSaveCommand ?? new CommandHandler(() => CancelSave(), true));
-        private ICommand _cancelSaveCommand;
+            _cancelSaveCommand ?? new CommandHandler(CancelSave, true);
+        private readonly ICommand _cancelSaveCommand;
     }
 }

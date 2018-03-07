@@ -29,7 +29,7 @@
             Grid.Column="0"/>
         
         <view:FamilyView 
-            DataContext="{Binding SelectedPerson.Family}"
+            DataContext="{Binding}"
             Grid.Row="1"
             Grid.Column="1"/>
     </Grid>

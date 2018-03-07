@@ -6,13 +6,6 @@
              xmlns:conv="clr-namespace:FamilyTree.Class.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-
-    <UserControl.Resources>
-        <Style TargetType="{x:Type Label}">
-            <Setter Property="FontWeight" Value="Bold"/>
-        </Style>
-    </UserControl.Resources>
-    
     <Grid 
         DataContext="{Binding EditedPerson}">
         
@@ -39,6 +32,7 @@
 
         <Label 
             Content="First Name"
+            Style="{StaticResource TitleText}"
             Grid.Row="0"
             Grid.Column="1"/>
         <TextBox 
@@ -48,6 +42,7 @@
 
         <Label 
             Content="First Name"
+            Style="{StaticResource TitleText}"
             Grid.Row="0"
             Grid.Column="2"/>
         <TextBox 
@@ -57,6 +52,7 @@
 
         <Label 
             Content="Sex"
+            Style="{StaticResource TitleText}"
             Grid.Row="2"
             Grid.Column="1"/>
         <RadioButton 
@@ -73,10 +69,12 @@
 
         <Label 
             Content="Appearance"
+            Style="{StaticResource TitleText}"
             Grid.Row="4"
             Grid.Column="0"/>
         <Label 
             Content="Hair Color"
+            Style="{StaticResource TitleText}"
             Grid.Row="5"
             Grid.Column="0"/>
         <ComboBox 
@@ -86,6 +84,7 @@
 
         <Label 
             Content="Eye Color"
+            Style="{StaticResource TitleText}"
             Grid.Row="5"
             Grid.Column="1"/>
         <ComboBox 
@@ -95,6 +94,7 @@
 
         <Label 
             Content="Hair Color"
+            Style="{StaticResource TitleText}"
             Grid.Row="5"
             Grid.Column="2"/>
         <TextBlock 

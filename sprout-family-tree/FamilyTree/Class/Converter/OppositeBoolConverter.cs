@@ -12,12 +12,12 @@ namespace FamilyTree.Class.Converter
             if (targetType != typeof(bool))
                 return false;
 
-            return !(bool)value;
+            return value != null && !(bool)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value;
+            return value != null && (bool)value;
         }
 
         public override object ProvideValue(IServiceProvider serviceProvider)

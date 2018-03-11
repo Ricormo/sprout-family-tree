@@ -19,12 +19,12 @@
         </Grid.ColumnDefinitions>
 
         <view:PersonView 
-            DataContext="{Binding SelectedPerson}"
+            DataContext="{Binding Person}"
             Grid.Row="0"
             Grid.Column="0"/>
 
         <view:EventView 
-            DataContext="{Binding SelectedPerson.Events}"
+            DataContext="{Binding Events}"
             Grid.Row="1"
             Grid.Column="0"/>
         

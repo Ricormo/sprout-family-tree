@@ -83,3 +83,7 @@ C:\Users\Ryan Jacobs\Documents\Visual Studio 2017\Projects\sprout\sprout-family-
 C:\Users\Ryan Jacobs\Documents\Visual Studio 2017\Projects\sprout\sprout-family-tree\sprout-family-tree\FamilyTree\obj\Debug\FamilyTree.exe
 C:\Users\Ryan Jacobs\Documents\Visual Studio 2017\Projects\sprout\sprout-family-tree\sprout-family-tree\FamilyTree\obj\Debug\FamilyTree.pdb
 C:\Users\Ryan Jacobs\Documents\Visual Studio 2017\Projects\sprout\sprout-family-tree\sprout-family-tree\FamilyTree\obj\Debug\App.baml
+C:\Users\Ryan Jacobs\Documents\Visual Studio 2017\Projects\sprout\sprout-family-tree\sprout-family-tree\FamilyTree\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Ryan Jacobs\Documents\Visual Studio 2017\Projects\sprout\sprout-family-tree\sprout-family-tree\FamilyTree\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Ryan Jacobs\Documents\Visual Studio 2017\Projects\sprout\sprout-family-tree\sprout-family-tree\FamilyTree\bin\Debug\AutoMapper.dll
+C:\Users\Ryan Jacobs\Documents\Visual Studio 2017\Projects\sprout\sprout-family-tree\sprout-family-tree\FamilyTree\bin\Debug\AutoMapper.xml

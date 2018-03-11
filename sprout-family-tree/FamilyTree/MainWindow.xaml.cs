@@ -1,6 +1,7 @@
-﻿using FamilyTree.Database.Service;
-using FamilyTree.ViewModel;
+﻿using FamilyTree.ViewModel;
 using System.Windows;
+using FamilyTree.Class;
+using FamilyTree.Domain.Service;
 
 namespace FamilyTree
 {
@@ -12,6 +13,7 @@ namespace FamilyTree
         public MainWindow()
         {
             InitializeComponent();
+            AutoMapperConfiguration.Configure();
             var presenter = new FamilyTreePresenter(new FileService());
             DataContext = presenter;
         }

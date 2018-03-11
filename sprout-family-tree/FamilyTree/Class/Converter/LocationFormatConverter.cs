@@ -2,16 +2,17 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
+using FamilyTree.Domain.Model;
 
 namespace FamilyTree.Class.Converter
 {
-    class EndDateFormatConverter : MarkupExtension, IValueConverter
+    public class LocationFormatConverter : MarkupExtension, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || !DateTime.TryParse(value.ToString(), out DateTime date))
-                return "";
-            return $" - {date:MM/dd/yyyy}";
+            if (!(value is LocationModel location)) return null;
+
+            return $"{location.City}, {location.State} {location.Country}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

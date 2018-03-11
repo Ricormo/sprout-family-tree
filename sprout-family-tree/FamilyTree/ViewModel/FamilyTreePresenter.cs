@@ -1,11 +1,13 @@
 ﻿using FamilyTree.Class;
-using FamilyTree.Database.Model;
-using FamilyTree.Database.Service;
 using System;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
+using AutoMapper;
+using FamilyTree.Domain.Model;
+using FamilyTree.Domain.Service;
 
 namespace FamilyTree.ViewModel
 {
@@ -15,99 +17,148 @@ namespace FamilyTree.ViewModel
 
         public FamilyTreePresenter(IFileService fileService)
         {
-            _fileService = 
+            _fileService =
                 fileService ?? throw new ArgumentNullException(nameof(fileService));
 
             LoadData();
             SelectedPerson = People.FirstOrDefault();
+            InitializePerson(SelectedPerson);
+
+            //SaveDataLocally();
+        }
+
+        public PersonDetailViewModel DetailViewModel
+        {
+            get => _detailViewModel;
+            set => SetField(ref _detailViewModel, value);
+        }
+        private PersonDetailViewModel _detailViewModel = new PersonDetailViewModel();
+
+        public PersonEditViewModel EditViewModel
+        {
+            get => _editViewModel;
+            set => SetField(ref _editViewModel, value);
+        }
+        private PersonEditViewModel _editViewModel = new PersonEditViewModel();
+
+        private PersonViewModel InitializePerson(PersonModel person)
+        {
+            var selectedPerson = Mapper.Map<PersonModel, PersonViewModel>(person);
+            DetailViewModel.Person = person;
+
+            var eventIds = Attendees
+                .Where(a => a.PersonId == selectedPerson.Id)
+                .Select(a => a.EventId).Distinct();
+            selectedPerson.Events = Events
+                .Where(e => eventIds.Contains(e.Id))
+                .OrderBy(e => e.StartTime).ToList();
+            DetailViewModel.Events = new ObservableCollection<EventModel>(Events
+                .Where(e => eventIds.Contains(e.Id))
+                .OrderBy(e => e.StartTime).ToList());
+
+
+            var father = People
+                .FirstOrDefault(p => p.Id == SelectedPerson.FatherId);
+
+            DetailViewModel.Father = father;
+            EditViewModel.Father = father;
+
+            var mother = People
+                .FirstOrDefault(p => p.Id == SelectedPerson.MotherId);
+
+            DetailViewModel.Mother = mother;
+            EditViewModel.Mother = mother;
+
+
+            //    //var parents = People
+            //    //    .Where(p =>
+            //    //        p.Id == SelectedPerson.FatherId
+            //    //        || p.Id == SelectedPerson.MotherId)
+            //    //        .ToList();
+
+            //    var children = People
+            //        .Where(p =>
+            //            p.FatherId == SelectedPerson.Id
+            //            || p.MotherId == SelectedPerson.Id)
+            //        .ToList();
+
+            //    var childrenParents = children
+            //        .SelectMany(c => new List<long?> { c.MotherId, c.FatherId })
+            //        .Where(p => p != SelectedPerson.Id)
+            //        .Distinct();
+
+            //    var partners = People
+            //        .Where(p => childrenParents.Contains(p.Id)).ToList();
+
+            //    //Children = new ObservableCollection<PersonViewModel>(People
+            //    //    .Where(p =>
+            //    //        p.FatherId == SelectedPerson.Id
+            //    //        || p.MotherId == SelectedPerson.Id)
+            //    //    .ToList());
+            //}
+
+            return selectedPerson;
         }
 
         private void LoadData()
         {
-            People = new ObservableCollection<PersonViewModel>(_fileService.GetPeople(""));
-            Events = new ObservableCollection<EventModel>(_fileService.GetEvents(""));
-            Attendees = _fileService.GetAttendees("").ToList();
+            Events = new ObservableCollection<EventModel>(_fileService.GetEvents());
+            Attendees = _fileService.GetAttendees().ToList();
+            EditViewModel.EyeColors = _fileService.GetEyeColors().ToList();
+            EditViewModel.HairColors = _fileService.GetHairColors().ToList();
+            People = new ObservableCollection<PersonModel>(_fileService.GetPeople().ToList());
         }
-
-        private void InitializePerson()
+        
+        private void SaveDataLocally()
         {
-            var eventIds = Attendees
-                .Where(a => a.PersonId == SelectedPerson.Id)
-                .Select(a => a.EventId).ToList();
-
-            SelectedPerson.Events = Events
-                .Where(e => eventIds.Contains(e.EventId))
-                .OrderBy(e => e.StartTime).ToList();
-
-            Father = People
-                .FirstOrDefault(p => p.Id == SelectedPerson.FatherId);
-
-            Mother = People
-                .FirstOrDefault(p => p.Id == SelectedPerson.MotherId);
-
-            //var parents = People
-            //    .Where(p =>
-            //        p.Id == SelectedPerson.FatherId
-            //        || p.Id == SelectedPerson.MotherId)
-            //        .ToList();
-
-            var children = People
-                .Where(p =>
-                    p.FatherId == SelectedPerson.Id
-                    || p.MotherId == SelectedPerson.Id)
-                    .ToList();
-
-            var childrenParents = children
-                .SelectMany(c => new List<long?> { c.MotherId, c.FatherId })
-                .Where(p => p != SelectedPerson.Id)
-                .Distinct();
-
-            var partners = People
-                .Where(p => childrenParents.Contains(p.Id)).ToList();
-
-            Children = new ObservableCollection<PersonViewModel>(People
-                .Where(p =>
-                    p.FatherId == SelectedPerson.Id
-                    || p.MotherId == SelectedPerson.Id)
-                .ToList());
+            foreach (var person in People)
+            {
+                //InitializePerson(person);
+            }
+            //_fileService.SaveFamilyTreeLocally(People);
+            _fileService.SavePeopleLocally(People
+                .Select(p => new PersonModel
+                {
+                    Id = p.Id,
+                    Appearance = p.Appearance,
+                    FatherId = p.FatherId,
+                    MotherId = p.MotherId
+                }));
         }
+
+        public void HandleFilesDrop(string[] files)
+        {
+            foreach (var file in files)
+            {
+                //_fileService.ParseFile(file);
+            }
+        }
+
+
+
 
         private void AddPerson()
         {
-            EditedPerson = new PersonViewModel();
+            EditViewModel.Person = new PersonModel();
             IsAddingPerson = true;
             IsEditingPerson = true;
         }
 
         private void EditPerson()
         {
-            EditedPerson = new PersonViewModel
-            {
-                Id = SelectedPerson.Id,
-                FirstName = SelectedPerson.FirstName,
-                LastName = SelectedPerson.LastName,
-                Sex = SelectedPerson.Sex,
-                Appearance = SelectedPerson.Appearance,
-                Birth = SelectedPerson.Birth,
-                Death = SelectedPerson.Death,
-                Events = SelectedPerson.Events,
-                FatherId = SelectedPerson.FatherId,
-                MotherId = SelectedPerson.MotherId,
-                Children = SelectedPerson.Children
-            };
+            EditViewModel.Person = People
+                .FirstOrDefault(p => p.Id == SelectedPerson.Id);
             IsEditingPerson = true;
         }
 
         private void SavePerson()
         {
             if (IsAddingPerson)
-            {
-                SelectedPerson = EditedPerson;
-                People.Add(SelectedPerson);
-            }
-            else
-                SelectedPerson = EditedPerson;
+                People.Add(EditViewModel.Person);
 
+            SelectedPerson = EditViewModel.Person;
+            //DetailViewModel.Person = EditViewModel.Person;
+            InitializePerson(EditViewModel.Person);
             IsEditingPerson = false;
             IsAddingPerson = false;
         }
@@ -117,14 +168,6 @@ namespace FamilyTree.ViewModel
             IsEditingPerson = false;
         }
 
-        public void HandleFilesDrop(string[] files)
-        {
-            foreach (var file in files)
-            {
-                _fileService.ParseFile(file);
-            }            
-        }
-        
         public bool IsEditingPerson
         {
             get => _isEditingPerson;
@@ -139,54 +182,29 @@ namespace FamilyTree.ViewModel
         }
         private bool _isAddingPerson;
 
-        public ObservableCollection<PersonViewModel> People
+        public ObservableCollection<PersonViewModel> PeopleList
+        {
+            get => _peopleList;
+            set => SetField(ref _peopleList, value);
+        }
+        private ObservableCollection<PersonViewModel> _peopleList = new ObservableCollection<PersonViewModel>();
+
+        public ObservableCollection<PersonModel> People
         {
             get => _people;
             set => SetField(ref _people, value);
         }
-        private ObservableCollection<PersonViewModel> _people = new ObservableCollection<PersonViewModel>();
+        private ObservableCollection<PersonModel> _people = new ObservableCollection<PersonModel>();
 
-        public PersonViewModel SelectedPerson
+        public PersonModel SelectedPerson
         {
             get => _selectedPerson;
             set {
                 SetField(ref _selectedPerson, value);
-                InitializePerson();
+                InitializePerson(People.FirstOrDefault(p => p.Id == value.Id));
             }
         }
-        private PersonViewModel _selectedPerson = new PersonViewModel();
-
-        public PersonViewModel EditedPerson
-        {
-            get => _editedPerson;
-            set
-            {
-                SetField(ref _editedPerson, value);
-                InitializePerson();
-            }
-        }
-        private PersonViewModel _editedPerson = new PersonViewModel();
-        
-        public PersonViewModel Father
-        {
-            get => _father;
-            set => SetField(ref _father, value);
-        }
-        private PersonViewModel _father = new PersonViewModel();
-
-        public PersonViewModel Mother
-        {
-            get => _mother;
-            set => SetField(ref _mother, value);
-        }
-        private PersonViewModel _mother = new PersonViewModel();
-
-        public ObservableCollection<PersonViewModel> Children
-        {
-            get => _children;
-            set => SetField(ref _children, value);
-        }
-        private ObservableCollection<PersonViewModel> _children = new ObservableCollection<PersonViewModel>();
+        private PersonModel _selectedPerson = new PersonModel();
 
         public List<AttendeeModel> Attendees
         {
@@ -202,20 +220,6 @@ namespace FamilyTree.ViewModel
         }
         private ObservableCollection<EventModel> _events = new ObservableCollection<EventModel>();
         
-        public List<HairColorModel> HairColors
-        {
-            get => _hairColors;
-            set => SetField(ref _hairColors, value);
-        }
-        private List<HairColorModel> _hairColors = new List<HairColorModel>();
-        
-        public List<EyeColorModel> EyeColors
-        {
-            get => _eyeColors;
-            set => SetField(ref _eyeColors, value);
-        }
-        private List<EyeColorModel> _eyeColors = new List<EyeColorModel>();
-
         public EventModel SelectedEvent
         {
             get => _selectedEvent;

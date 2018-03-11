@@ -7,37 +7,69 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Image 
-            Grid.Column="0"
-            Grid.RowSpan="2"/>
+            <Image 
+                Grid.Column="0"
+                Grid.RowSpan="2"/>
 
-        <Grid
-            Grid.Column="1" 
-            Grid.Row="0">
+            <TextBlock
+                Grid.Column="1" 
+                Grid.Row="0">
+                <Run Text="{Binding FirstName}"/>
+                <Run Text="{Binding LastName}"/>
+                <Run Text="{Binding Sex, Converter={conv:SexConverter}}"/>
+            </TextBlock>
 
-            <StackPanel
-                Orientation="Horizontal">
-
-                <Label Content="{Binding FullName}"/>
-                <Label Content="{Binding Sex, Converter={conv:SexConverter}}"/>
-            </StackPanel>
+            <TextBlock
+                Grid.Column="1" 
+                Grid.Row="1">
+                <Run Text="{Binding BirthDate, StringFormat=d}"/>
+                <Run Text="-"/>
+                <Run Text="{Binding DeathDate, StringFormat=d}"/>
+            </TextBlock>
         </Grid>
 
-        <Grid 
-            Grid.Column="1" 
-            Grid.Row="1">
+        <!--Empty/Loading Person-->
+        <Grid Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <Label Content="{Binding LifeSpan}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image 
+                Grid.Column="0"
+                Grid.RowSpan="2"/>
+
+            <TextBlock
+                Grid.Column="1" 
+                Grid.Row="0">
+                <Run Text="{Binding FirstName}"/>
+                <Run Text="{Binding LastName}"/>
+                <Run Text="{Binding Sex, Converter={conv:SexConverter}}"/>
+            </TextBlock>
+
+            <TextBlock
+                Grid.Column="1" 
+                Grid.Row="1">
+                <Run Text="{Binding BirthDate, StringFormat=d}"/>
+                <Run Text="-"/>
+                <Run Text="{Binding DeathDate, StringFormat=d}"/>
+            </TextBlock>
         </Grid>
     </Grid>
 </UserControl>

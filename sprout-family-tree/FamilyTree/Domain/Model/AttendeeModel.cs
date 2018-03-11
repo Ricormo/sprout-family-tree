@@ -1,4 +1,4 @@
-﻿namespace FamilyTree.Database.Model
+﻿namespace FamilyTree.Domain.Model
 {
     public class AttendeeModel
     {

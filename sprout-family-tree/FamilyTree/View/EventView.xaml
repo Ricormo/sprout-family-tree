@@ -10,11 +10,12 @@
     <Grid>
         <ListView 
             ItemsSource="{Binding}">
-            
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -23,17 +24,22 @@
                             Content="{Binding Name}"
                             Grid.Row="0"/>
 
-                        <StackPanel 
-                            Orientation="Horizontal"
+                        <Label 
                             Grid.Row="1">
+                            <Label.Content>
+                                <MultiBinding Converter="{conv:TimeSpanConverter}">
+                                    <Binding Path="StartTime"/>
+                                    <Binding Path="EndTime"/>
+                                </MultiBinding>
+                            </Label.Content>
+                        </Label>
 
-                            <Label Content="{Binding StartTime}"/>
-                            <Label Content="{Binding EndTime, Converter={conv:EndDateFormatConverter}}"/>
-                            <Label Content="{Binding Location}"/>
-                        </StackPanel>
-                    </Grid>                    
-                </DataTemplate>    
-            </ListView.ItemTemplate>            
+                        <Label 
+                            Content="{Binding Location, Converter={conv:LocationFormatConverter}}"
+                            Grid.Row="2"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </UserControl>

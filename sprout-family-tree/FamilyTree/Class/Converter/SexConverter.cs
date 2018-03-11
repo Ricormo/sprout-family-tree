@@ -10,7 +10,7 @@ namespace FamilyTree.Class.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null) return "";
-            bool.TryParse(value.ToString(), out bool sex);
+            bool.TryParse(value.ToString(), out var sex);
             return sex ? "♂" : "♀";
         }
 

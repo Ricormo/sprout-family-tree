@@ -34,11 +34,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,19 +64,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Class\Converter\EndDateFormatConverter.cs" />
+    <Compile Include="Class\AutoMapperConfiguration.cs" />
+    <Compile Include="Class\Converter\FullNameConverter.cs" />
+    <Compile Include="Class\Converter\LocationFormatConverter.cs" />
+    <Compile Include="Class\Converter\TimeSpanConverter.cs" />
     <Compile Include="Class\Converter\OppositeBoolConverter.cs" />
     <Compile Include="Class\Converter\SexConverter.cs" />
     <Compile Include="Class\CommandHandler.cs" />
     <Compile Include="Class\ViewModelBase.cs" />
-    <Compile Include="Database\Model\AppearanceModel.cs" />
-    <Compile Include="Database\Model\AttendeeModel.cs" />
-    <Compile Include="Database\Model\EventTypeModel.cs" />
-    <Compile Include="Database\Model\EyeColorModel.cs" />
-    <Compile Include="Database\Model\HairColorModel.cs" />
-    <Compile Include="Database\Model\LocationModel.cs" />
-    <Compile Include="Database\Model\PersonModel.cs" />
+    <Compile Include="Domain\Model\AppearanceModel.cs" />
+    <Compile Include="Domain\Model\AttendeeModel.cs" />
+    <Compile Include="Domain\Model\EventTypeModel.cs" />
+    <Compile Include="Domain\Model\EyeColorModel.cs" />
+    <Compile Include="Domain\Model\HairColorModel.cs" />
+    <Compile Include="Domain\Model\LocationModel.cs" />
+    <Compile Include="Domain\Model\PersonModel.cs" />
     <Compile Include="ViewModel\FamilyTreePresenter.cs" />
+    <Compile Include="ViewModel\PersonDetailViewModel.cs" />
+    <Compile Include="ViewModel\PersonEditViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="View\EventView.xaml.cs">
       <DependentUpon>EventView.xaml</DependentUpon>
@@ -94,9 +106,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Database\Model\EventModel.cs" />
-    <Compile Include="Database\Service\FileService.cs" />
-    <Compile Include="Database\Service\IFileService.cs" />
+    <Compile Include="Domain\Model\EventModel.cs" />
+    <Compile Include="Domain\Service\FileService.cs" />
+    <Compile Include="Domain\Service\IFileService.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

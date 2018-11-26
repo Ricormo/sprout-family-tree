@@ -34,12 +34,12 @@ namespace FamilyTree.ViewModel
         }
         private PersonModel _mother = new PersonModel();
 
-        public ObservableCollection<PersonViewModel> Children
+        public ObservableCollection<PersonModel> Children
         {
             get => _children;
             set => SetField(ref _children, value);
         }
-        private ObservableCollection<PersonViewModel> _children = new ObservableCollection<PersonViewModel>();
+        private ObservableCollection<PersonModel> _children = new ObservableCollection<PersonModel>();
 
     }
 }

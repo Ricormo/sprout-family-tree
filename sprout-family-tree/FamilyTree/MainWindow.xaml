@@ -121,12 +121,12 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <view:PersonDetailView
-            DataContext="{Binding DetailViewModel}"
+        <Grid
             Grid.Row="1"
             Grid.Column="1">
-            <view:PersonDetailView.Style>
-                <Style TargetType="{x:Type UserControl}">
+
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
                     <Setter Property="Visibility" Value="Visible"/>
 
                     <Style.Triggers>
@@ -140,9 +140,12 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </view:PersonDetailView.Style>
-        </view:PersonDetailView>
+            </Grid.Style>
 
+            <view:PersonDetailView 
+                DataContext="{Binding DetailViewModel}"/>
+        </Grid>
+        
         <view:PersonEditView 
             Grid.Row="1"
             Grid.Column="1" 

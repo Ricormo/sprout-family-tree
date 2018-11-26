@@ -11,47 +11,29 @@ namespace FamilyTree.Domain.Service
     {
         #region Local Saving
 
-        public void SaveFamilyTreeLocally(IEnumerable<PersonViewModel> people)
-        {
-            WriteTextAsync(
+        public void SaveFamilyTreeLocally(IEnumerable<PersonViewModel> people) => WriteTextAsync(
                 JsonConvert.SerializeObject(people, Formatting.Indented),
                 "FamilyTree.txt");
-        }
 
-        public void SavePeopleLocally(IEnumerable<PersonModel> people)
-        {
-            WriteTextAsync(
+        public void SavePeopleLocally(IEnumerable<PersonModel> people) => WriteTextAsync(
                 JsonConvert.SerializeObject(people),
                 "People.txt");
-        }
 
-        public void SaveEventTypesLocally(IEnumerable<EventTypeModel> eventTypes)
-        {
-            WriteTextAsync(
+        public void SaveEventTypesLocally(IEnumerable<EventTypeModel> eventTypes) => WriteTextAsync(
                 JsonConvert.SerializeObject(eventTypes),
                 "EventTypes.txt");
-        }
 
-        public void SaveAttendeesLocally(IEnumerable<AttendeeModel> attendees)
-        {
-            WriteTextAsync(
+        public void SaveAttendeesLocally(IEnumerable<AttendeeModel> attendees) => WriteTextAsync(
                 JsonConvert.SerializeObject(attendees),
                 "EventTypes.txt");
-        }
 
-        public void SaveHairColorsLocally(IEnumerable<HairColorModel> hairColors)
-        {
-            WriteTextAsync(
+        public void SaveHairColorsLocally(IEnumerable<HairColorModel> hairColors) => WriteTextAsync(
                 JsonConvert.SerializeObject(hairColors),
                 "HairColors.txt");
-        }
 
-        public void SaveEyeColorsLocally(IEnumerable<EyeColorModel> eyeColors)
-        {
-            WriteTextAsync(
+        public void SaveEyeColorsLocally(IEnumerable<EyeColorModel> eyeColors) => WriteTextAsync(
                 JsonConvert.SerializeObject(eyeColors),
                 "EyeColors.txt");
-        }
 
         private static async void WriteTextAsync(string text, string fileName)
         {

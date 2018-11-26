@@ -318,3 +318,7 @@ ASALocalRun/
 
 # MSBuild Binary and Structured Log
 *.binlog
+bin
+obj
+/sprout-family-tree/FamilyTree/bin
+/sprout-family-tree/FamilyTree/obj

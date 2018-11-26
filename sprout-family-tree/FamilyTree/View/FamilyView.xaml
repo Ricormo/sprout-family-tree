@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Label 
@@ -32,18 +33,21 @@
         <view:PersonView 
             DataContext="{Binding Mother}"
             Grid.Row="3"/>
-        
+
+        <Label 
+            Content="Children"
+            Style="{StaticResource TitleText}"
+            Grid.Row="4"/>
+
         <ListView
             ItemsSource="{Binding Children}"
-            Grid.Row="4">
+            Grid.Row="5">
 
-            <!--<ListViewItem>
-                <ListViewItem.Template>
-                    <ControlTemplate>
-                        <view:PersonView/>
-                    </ControlTemplate>
-                </ListViewItem.Template>
-            </ListViewItem>-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <view:PersonView/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
 
         </ListView>
 

@@ -23,8 +23,6 @@ namespace FamilyTree.ViewModel
             LoadData();
             SelectedPerson = People.FirstOrDefault();
             InitializePerson(SelectedPerson);
-
-            //SaveDataLocally();
         }
 
         public PersonDetailViewModel DetailViewModel
@@ -69,18 +67,13 @@ namespace FamilyTree.ViewModel
             DetailViewModel.Mother = mother;
             EditViewModel.Mother = mother;
 
+            var children = People
+                .Where(p =>
+                    p.FatherId == SelectedPerson.Id
+                    || p.MotherId == SelectedPerson.Id)
+                .ToList();
 
-            //    //var parents = People
-            //    //    .Where(p =>
-            //    //        p.Id == SelectedPerson.FatherId
-            //    //        || p.Id == SelectedPerson.MotherId)
-            //    //        .ToList();
-
-            //    var children = People
-            //        .Where(p =>
-            //            p.FatherId == SelectedPerson.Id
-            //            || p.MotherId == SelectedPerson.Id)
-            //        .ToList();
+            DetailViewModel.Children = new ObservableCollection<PersonModel>(children);
 
             //    var childrenParents = children
             //        .SelectMany(c => new List<long?> { c.MotherId, c.FatherId })
